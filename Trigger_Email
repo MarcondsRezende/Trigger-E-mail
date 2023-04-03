@@ -1,0 +1,126 @@
+// Criando a função para enviar os emails automaticos
+function sendEmailRenovacao() {
+  var planilha = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Dados Renovação');
+  var range = planilha.getDataRange();
+  var rows = range.getValues();
+
+  for (var i = 1; i < rows.length; i++) {      // Definindo que irá rodar apenas nas linhas preenchidas da tabela
+    var nome = rows[i][0];        // Pegando o nome de cada
+    var produto = rows[i][1];      // Pegando o produto de cada
+    var protocolo = rows[i][3];      // Pegando o protocolo de cada
+    var vencimento = rows[i][2];     // Pegando o vencimento de cada
+    var email = rows[i][4];      // Pegando o email de cada
+    var formattedDatetime = new Date(vencimento).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+    var assunto = "RENOVE SEU CERTIFICADO DIGITAL " + nome + " | WEBCERTIFICADOS.";
+
+    var htmlBody = `<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
+    </style>
+  </head>
+  <center>
+    <header>
+      <div
+        style="
+          margin-bottom: 20px;
+          background-color: #006c98;
+          width: 620px;
+          border-radius: 20px;
+        "
+      >
+        <a href="https://webcertificados.com.br/"
+          ><img
+            id="logo-header"
+            src="https://arquivos.webcertificados.com/wl/?id=Tm9ZFTQdn8BfQTuVhhswApdHGgRx5xIY&fmode=open"
+            alt="Logo WebCertificados"
+            width="300"
+        /></a>
+      </div>
+    </header>
+    <body>
+      <div
+        style="
+          border-radius: 20px;
+          background-color: #ecf8ff;
+          height: 540px;
+          width: 600px;
+          line-height: 24px;
+          padding: 10px;
+          font-family: 'Open Sans', sans-serif;
+          font-size: 18px;
+          -ms-text-size-adjust: 100%;
+          -webkit-text-size-adjust: 100%;
+          word-break: break-word;
+        "
+      >
+        <div
+          style="
+            font-family: 'Open Sans', sans-serif;
+            font-size: 18px;
+            line-height: 0.6;
+            color: rgb(24, 24, 24);
+          "
+        >
+          <h3>Prezado(a), ${nome}</h3>
+          <br />
+          <h3>Faltam poucos dias para seu certificado digital vencer.</h3>
+          <h3>Para você não perder a data e se antecipar,</h3>
+          <h3>clique no botão abaixo e faça sua renovação hoje,</h3>
+          <h3>de forma totalmente online!</h3>
+        </div>
+        <div
+          style="
+            font-family: 'Open Sans', sans-serif;
+            font-size: 18px;
+            line-height: 0.6;
+            margin-top: 50px;
+            color: rgb(24, 24, 24);
+          "
+        >
+          <h3>Detalhes do seu pedido</h3>
+          <h3>Protocolo: ${protocolo}</h3>
+          <h3>Produto: ${produto}</h3>
+          <h3>Vencimento: ${formattedDatetime}</h3>
+          <div style="margin-top: 50px">
+            <a
+              href="https://api.whatsapp.com/send?phone=553232175259&text=Ol%C3%A1,%20quero%20renovar%20agora!"
+              ><button
+                style="
+                  font-size: 18px;
+                  border: none;
+                  color: #fff;
+                  width: 20vw;
+                  height: 5vh;
+                  background: linear-gradient(120deg, #006c98, #00445f);
+                  border-radius: 20px;
+                "
+              >
+                CLIQUE AQUI PARA RENOVAR AGORA!
+              </button></a
+            >
+            <h3 style="margin-top: 15px">Renove e ganhe benefícios!</h3>
+            <h3 style="margin-top: -5px; font-size: 12px;"> Dúvidas? Nosso Telefone: <a href="tel:+553232175259" style="color: rgb(24, 24, 24);">(32) 3217-5259</a></h5>
+          </div>
+        </div>
+      </div>
+    </body>
+  </center>
+</html>
+
+`;
+
+    var options = {
+      htmlBody: htmlBody
+    }
+
+    GmailApp.sendEmail(email, assunto, "", options);
+
+    // Criando uma mensagem após a utilização do script
+    //Browser.msgBox("Email enviado com sucesso! Até semana que vem.")
+
+  }
+}
