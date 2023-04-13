@@ -1,0 +1,52 @@
+Rem Attribute VBA_ModuleType=VBAModule
+Option VBASupport 1
+Sub resetar()
+'
+' resetar Macro
+'
+
+'
+    Range("E3").Select
+    ActiveCell.FormulaR1C1 = "0"
+    Range("E3").Select
+    Selection.AutoFill Destination:=Range("E3:E602")
+    Range("E3:E602").Select
+End Sub
+Sub enviar_email()
+
+Set objeto_outlook = CreateObject("Outlook.Application")
+
+
+
+For linha = 3 To 1000
+    
+    If Cells(linha, 5) = 0 Then
+  
+    Set Email = objeto_outlook.createitem(0)
+
+    Email.display
+    
+    Email.To = Cells(linha, 2)
+    
+    Email.Subject = "Contra-cheque | " & Cells(linha, 1) & " | Mês de " & Cells(1, 6)
+    
+    Email.Body = Cells(2, 6)
+    
+    Email.Attachments.Add ("W:\006 ARQUIVOS GERAIS\10 - RECURSOS HUMANOS\PLANILHA AUTOMATIZADA\Contra-cheques\" & Cells(linha, 4))
+    Email.send
+    
+    Cells(linha, 5) = 1
+    
+    If Cells(linha, 1) = "" Then linha = 1000
+    
+    Else
+    
+    
+    End If
+    
+Next linha
+  
+
+End Sub
+
+
