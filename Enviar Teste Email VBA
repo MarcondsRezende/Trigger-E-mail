@@ -1,0 +1,53 @@
+Rem Attribute VBA_ModuleType=VBAModule
+Option VBASupport 1
+Rem Comment after a statement separated by a colon.
+' inicio da classe de envio de email teste
+Sub enviar_email_teste()
+
+' selecinando a plataforma de envio
+Set objeto_outlook = CreateObject("Outlook.Application")
+
+
+' Criando o laço para iniciar os envios testes
+' Inicia da linha 3 da ABA Planilha automática
+For linha = 3 To 1000
+    
+    If Cells(linha, 5) = 0 Then ' Se a celula de qualquer linha na coluna 5 for igual a 0
+    
+    ' Cria um e-mail no Outlook
+    Set Email = objeto_outlook.createitem(0)
+    
+    ' Essa expressão traz o display de e-mail do Outlook
+    Email.display
+    
+    ' Seleciona o email que será enviado
+    Email.To = "trashwebcertificados@gmail.com"
+    
+    ' Cria a mensagem a ser enviada com o nome e o mês de envio do contra cheque
+    Email.Subject = "Contra-cheque | " & Cells(linha, 1) & " | Mês de " & Cells(1, 5)
+    
+    ' cria o corpo do email
+    Email.Body = Cells(2, 6)
+    
+    ' Seleciona o Contra-cheque a ser enviado de acordo com o nome da pessoa na planilha (Nome na planilha e Nome do Arquivo tem que ser iguais)
+    Email.Attachments.Add ("W:\006 ARQUIVOS GERAIS\10 - RECURSOS HUMANOS\PLANILHA AUTOMATIZADA\Contra-cheques\" & Cells(linha, 4))
+    
+    ' Envia o email
+    Email.send
+    
+    Cells(linha, 5) = 1
+    
+    ' Se na coluna 1 for vazio ele retornará a linha 9999 (tem que tomar cuidado com isso)
+    If Cells(linha, 1) = "" Then linha = 1000
+      
+    Else
+    
+    
+    End If
+    
+Next linha
+  
+
+End Sub
+
+
