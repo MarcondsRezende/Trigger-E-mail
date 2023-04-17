@@ -14,8 +14,7 @@ function sendEmailRenovacao() {
 
     var assunto = "RENOVE SEU CERTIFICADO DIGITAL " + nome + " | WEBCERTIFICADOS.";
 
-    var htmlBody = `<!DOCTYPE html>
-<html>
+    var htmlBody = `<html>
   <head>
     <base target="_top" />
     <style>
@@ -48,7 +47,7 @@ function sendEmailRenovacao() {
           background-color: #ecf8ff;
           height: 540px;
           width: 600px;
-          line-height: 24px;
+          line-height: 24=px;
           padding: 10px;
           font-family: 'Open Sans', sans-serif;
           font-size: 18px;
@@ -60,37 +59,49 @@ function sendEmailRenovacao() {
         <div
           style="
             font-family: 'Open Sans', sans-serif;
-            font-size: 18px;
+            font-size: 16px;
             line-height: 0.6;
             color: rgb(24, 24, 24);
           "
         >
-          <h3>Prezado(a), ${nome}</h3>
-          <br />
-          <h3>Faltam poucos dias para seu certificado digital vencer.</h3>
-          <h3>Para você não perder a data e se antecipar,</h3>
-          <h3>clique no botão abaixo e faça sua renovação hoje,</h3>
-          <h3>de forma totalmente online!</h3>
+            <h3>Prezado(a), *|NOME|* </h3>
+            <br />
+        <div
+          style="
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            line-height: 0.4;
+            color: rgb(24, 24, 24);
+          "
+        >
+            <h3>Faltam poucos dias para sua empresa não conseguir faturar.</h3>
+            <h3>Para que isso não aconteça, renove seu certificado digital</h3>
+            <h3>conosco, não deixe para a ultima hora!</h3>
+            <br />
+            <h3>Dessa forma, clique no botão logo abaixo.</h3>
+            <br />
+            <h3>A renovação é totalmente online e bem rápida!.</h3>
         </div>
         <div
           style="
             font-family: 'Open Sans', sans-serif;
-            font-size: 18px;
+            font-size: 14px;
             line-height: 0.6;
             margin-top: 50px;
             color: rgb(24, 24, 24);
           "
         >
-          <h3>Detalhes do seu pedido</h3>
-          <h3>Protocolo: ${protocolo}</h3>
-          <h3>Produto: ${produto}</h3>
-          <h3>Vencimento: ${formattedDatetime}</h3>
+        <h3>Detalhes do seu pedido:</h3>
+        <h3> ● Protocolo:  *|PROTOCOLO|* </h3>
+        <h3> ● Produto:  *|PRODUTO|* </h3>
+        <h3> ● Vencimento: *|DATA|* </h3>
+        <br />
           <div style="margin-top: 50px">
             <a
-              href="https://api.whatsapp.com/send?phone=553232175259&text=Ol%C3%A1,%20quero%20renovar%20agora!"
+              href="https://api.whatsapp.com/send?phone=553232175259&text=Olá,%20vi%20seu%20e-mail%20e%20quero%20renovar%20agora!"
               ><button
                 style="
-                  font-size: 18px;
+                  font-size: 15px;
                   border: none;
                   color: #fff;
                   width: 20vw;
@@ -102,16 +113,14 @@ function sendEmailRenovacao() {
                 CLIQUE AQUI PARA RENOVAR AGORA!
               </button></a
             >
-            <h3 style="margin-top: 15px">Renove e ganhe benefícios!</h3>
-            <h3 style="margin-top: -5px; font-size: 12px;"> Dúvidas? Nosso Telefone: <a href="tel:+553232175259" style="color: rgb(24, 24, 24);">(32) 3217-5259</a></h5>
+            <h3 style="margin-top: 12px">Renove e ganhe benefícios!</h3>
+            <h3 style="margin-top: -5px; font-size: 10px;"> Dúvidas? Nosso Telefone: <a href="tel:+553232175259" style="color: rgb(24, 24, 24);">(32) 3217-5259</a></h5>
           </div>
         </div>
       </div>
     </body>
   </center>
-</html>
-
-`;
+</html>;
 
     var options = {
       htmlBody: htmlBody
