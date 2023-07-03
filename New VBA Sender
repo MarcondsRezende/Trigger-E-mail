@@ -1,0 +1,61 @@
+Rem Attribute VBA_ModuleType = VBAModule
+' Option VBASupport 1
+Rem Comment after a statement separated by a colon.
+
+' Criando a função main que será enviar_email
+Sub enviar_email()
+
+' Selecinando a plataforma de envio
+Dim outlook_app As Object
+Set outlook_app = CreateObject("Outlook.Application")
+
+' Determinando o objeto Email para utilizar futuramente
+Dim Email As Object
+
+' Buscando o Caminho da pasta onde está localizado os manuais e o arquivo xlsx
+Dim path As String
+path = "C:\Users\99005524\Documents\Dev x Rej\"
+
+' Determina a lista que será passada
+Dim MRS_List As Range
+MRS_List = Range("A2", Range("A2").End(xlDown))
+
+' Trazendo o display de email para a tela
+Dim display_email As Object
+
+' Determinando o range da planilha
+Dim MRS As Range
+
+' Criando o laço para iniciar os envios testes
+' Inicia da linha 2 da ABA Planilha automática
+For Each MRS In MRS_List
+    
+    ' Criando uma forma de não haver emails duplicados ou um loop infinito
+    ' If Cells(linha, 9) = "" Then ' Se a celula de qualquer linha na coluna 5 for igual a 0
+        
+    ' Setando o objeto e mostrando o que ele terá que fazer
+    Set Email = outlook_app.CreateItem(0)
+    
+    ' Montando o Escopo de Email
+    With Email
+        .To = MRS.Offset(0, 7)
+        .Subject = "Pagamento Rejeitado pelo Banco"
+        .Attachments.Add (path & MRS.Offset(0, 8))
+        .Body = "Prezados, boa tarde!" & vbNewLine _
+        & "A MRS Logística tentou efetuar no dia " & R.Offset(0, 3) & " o pagamento das seguintes NF's, para" & R & vbNewLine _
+        & "Contudo, o pagamento foi rejeitado/devolvido pelo banco cadastrado." & vbNewLine & vbNewLine _
+        & "    Segue os dados: " & vbNewLine &
+        & "    Banco: " R.Offset(0,4) & vbNewLine
+        & "    Agência: " R.Offset(0,5) & vbNewLine
+        & "    Conta: " R.Offset(0,6) & vbNewLine
+        "Peço por gentileza enviar um comprovante, como um cheque da nova conta bancária para que possamos atualizar o cadastro."
+        .Send
+        
+    End With
+    
+Next MRS
+
+Set outlook_app = Nothing
+Set Email = Nothing
+
+End Sub
